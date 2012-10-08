@@ -1,6 +1,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+set t_Co=16
 syntax on
 set background=dark
 colorscheme solarized
@@ -21,7 +22,6 @@ Bundle 'wincent/Command-T'
 filetype plugin indent on
 
 " General Stuff
-
 set encoding=utf-8
 set number                      " Line numbers are good
 set showcmd                     " Display incomplete commands
