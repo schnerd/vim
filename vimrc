@@ -20,14 +20,12 @@ Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'msanders/snipmate.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'Shougo/neosnippet'
 Bundle 'honza/snipmate-snippets'
 Bundle 'brookhong/DBGPavim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'vim-scripts/AutoComplPop'
-"Bundle 'Valloric/YouCompleteMe'
 
 filetype plugin indent on
 
@@ -42,8 +40,36 @@ set pastetoggle=<F2>            " Hotkey for pasting without comments
 " Tags
 set tags=~/.vim/mytags
 
+" change the mapleader from \ to ,
+let mapleader=","
+
+"Open definition in a new vertical split window
+map <Leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" JS Beautify
+map <Leader>f :call JsBeautify()<cr>
+
 " Configure viminfo 
 set viminfo='10,\"100,:20,%,n~/.viminfo
+
+" Force sudo write
+cmap w!! %!sudo tee > /dev/null %
+
+" Substite visual selection with register text
+vmap r "_dp
+vmap R "_dP
+
+" Shortcut to paste from yank register
+nmap <Leader>p "0p
+nmap <Leader>P "0p
+
+" PHP Docs and automatically write * when doing a newline in a doc block
+nmap <Leader>j :call PhpDoc()<cr>
+autocmd FileType php setlocal comments=sl:/*,mb:*,elx:*/
+set formatoptions+=r
+
+" Better indentation for html/css/js in PHP files
+autocmd FileType php setlocal indentkeys-=*<Return>
 
 " Whitespace
 set autoindent                  " Indent automatically
@@ -114,9 +140,23 @@ map <leader>aw :wall<cr>
 map <leader>aq :qall<cr>
 
 " Search and replace current word
-nnoremap <leader>r :'{,'}s/<c-r>=expand('<cword>')<cr>/
+nnoremap <leader>r :%s/<c-r>=expand('<cword>')<cr>/
+
+" Remap the visual line movement shortcut that always drops me into shell
+nnoremap VK Vk
+nnoremap VJ Vj
 
 " Retain visual selection when indenting blocks
 vnoremap < <gv
 vnoremap > >gv
 
+" Make substitution repeat use the previous flags as well
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+" Generate ctags for the current project
+nnoremap <f5> :!ctags -R<CR>
+
+" Make grep use ack
+set grepprg=ack\ --nogroup\ --column\ $*
+set grepformat=%f:%l:%c:%m
