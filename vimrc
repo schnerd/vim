@@ -26,6 +26,7 @@ Bundle 'honza/snipmate-snippets'
 Bundle 'brookhong/DBGPavim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'vim-scripts/AutoComplPop'
+Bundle 'terryma/vim-multiple-cursors'
 
 filetype plugin indent on
 
@@ -39,6 +40,9 @@ set pastetoggle=<F2>            " Hotkey for pasting without comments
 
 " Tags
 set tags=~/.vim/mytags
+
+" Store swap files in fixed location, not current directory.
+set dir=~/.vimswap//,/var/tmp//,/tmp//,.
 
 " change the mapleader from \ to ,
 let mapleader=","
@@ -158,5 +162,14 @@ xnoremap & :&&<CR>
 nnoremap <f5> :!ctags -R<CR>
 
 " Make grep use ack
-set grepprg=ack\ --nogroup\ --column\ $*
+set grepprg=ack-grep\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
+
+" Open ControlP on startup
+function! StartUp()
+	if 0 == argc()
+		CtrlP
+	end
+endfunction
+
+autocmd VimEnter * call StartUp()
