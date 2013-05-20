@@ -15,18 +15,20 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'Shougo/neosnippet'
-Bundle 'honza/snipmate-snippets'
-Bundle 'brookhong/DBGPavim'
+"Bundle 'Shougo/neosnippet'
+"Bundle 'honza/snipmate-snippets'
+"Bundle 'brookhong/DBGPavim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'vim-scripts/AutoComplPop'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'tpope/vim-fugitive'
+Bundle 'joonty/vdebug'
 
 filetype plugin indent on
 
@@ -173,3 +175,13 @@ function! StartUp()
 endfunction
 
 autocmd VimEnter * call StartUp()
+
+" Console log from insert mode; Puts focus inside parentheses
+imap cll console.log();<Esc>==f(a
+" Console log from visual mode on next line, puts visual selection inside parentheses
+vmap cll yocll<Esc>p
+" Console log from normal mode, inserted on next line with word your on inside parentheses
+nmap cll yiwocll<Esc>p 
+
+" Syntax highlighting for HTML in PHP strings
+let php_htmlInStrings=1
