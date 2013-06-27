@@ -26,6 +26,7 @@ Bundle 'godlygeek/tabular'
 "Bundle 'brookhong/DBGPavim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'vim-scripts/AutoComplPop'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-fugitive'
 Bundle 'joonty/vdebug'
@@ -51,9 +52,6 @@ let mapleader=","
 
 "Open definition in a new vertical split window
 map <Leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-" JS Beautify
-map <Leader>f :call JsBeautify()<cr>
 
 " Configure viminfo 
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -83,10 +81,10 @@ set smartindent
 set smarttab
 set nowrap                      " Don't wrap lines
 set linebreak                   "Wrap lines at convenient points
-set tabstop=3
-set softtabstop=3
-set shiftwidth=3                " A tab is four spaces
-set ts=3 sw=3 ai
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4                " A tab is four spaces
+set ts=4 sw=4 ai
 set backspace=indent,eol,start  " Backspace through everything in insert mode
 
 " Display tabs and trailing spaces visually
@@ -116,6 +114,9 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 
+" Syntastic, just use base php checker
+let g:syntastic_php_checkers=['php']
+
 " Ctrl P Options 
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_show_hidden = 1 
@@ -127,8 +128,12 @@ let g:ctrlp_clear_cache_on_exit = 0
 " Powerline Options
 let g:Powerline_symbols = 'fancy'
 
-" xDebug dont break on first entry
-let g:dbgPavimBreakAtEntry = 0
+" vDebug Options
+let g:vdebug_options= {
+\    "timeout" : 30,
+\    "break_on_open" : 0,
+\    "watch_window_style" : 'compact',
+\}
 
 " Remap space to change windows
 :map <Space> <C-W>w
@@ -145,6 +150,9 @@ map <leader>q :q<cr>
 map <leader>aw :wall<cr>
 map <leader>aq :qall<cr>
 
+" Fix syntax highlighting
+map <leader>fs :syn sync fromstart<cr>
+
 " Search and replace current word
 nnoremap <leader>r :%s/<c-r>=expand('<cword>')<cr>/
 
@@ -152,9 +160,7 @@ nnoremap <leader>r :%s/<c-r>=expand('<cword>')<cr>/
 nnoremap VK Vk
 nnoremap VJ Vj
 
-" Retain visual selection when indenting blocks
-vnoremap < <gv
-vnoremap > >gv
+vnoremap <leader>ct cvar t1 = (new Date()).getTime();<esc>o<esc>gPkA<esc>oconsole.log(((new Date()).getTime()-t1)+'ms');<esc>
 
 " Make substitution repeat use the previous flags as well
 nnoremap & :&&<CR>
@@ -185,3 +191,13 @@ nmap cll yiwocll<Esc>p
 
 " Syntax highlighting for HTML in PHP strings
 let php_htmlInStrings=1
+
+" make arrow keys do something useful
+map <Up> <C-W>+
+map <Down> <C-W>-
+map <Left> <C-W><
+map <Right> <C-W>>
+
+" Quick sessions
+map <leader>ss :mksession! ~/.vim/mysession.vim<CR>
+map <leader>os :source ~/.vim/mysession.vim<CR>
