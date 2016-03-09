@@ -10,8 +10,8 @@ colorscheme solarized
 " Vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 Bundle 'gmarik/vundle'
 Bundle 'Lokaltog/vim-easymotion'
@@ -19,13 +19,12 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'kien/ctrlp.vim'
 Bundle 'godlygeek/tabular'
 "Bundle 'Shougo/neosnippet'
 "Bundle 'honza/snipmate-snippets'
 "Bundle 'brookhong/DBGPavim'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'vim-scripts/AutoComplPop'
+"Bundle 'vim-scripts/AutoComplPop'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'tpope/vim-fugitive'
@@ -99,7 +98,7 @@ set smartcase                   " ... unless they contain at least one capital l
 " Completion
 set wildmode=list:longest
 set wildmenu                    " Enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~     " Stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*.scssc,*~     " Stuff to ignore when tab completing
 
 " Scrolling
 set scrolloff=15                 " Start scrolling when we're 8 lines away from margins
@@ -115,9 +114,12 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 
 " Syntastic, just use base php checker
-let g:syntastic_php_checkers=['php']
+let g:syntastic_php_checkers=['php', 'phpcs']
 
 " Ctrl P Options 
+" Install via http://ctrlpvim.github.io/ctrlp.vim/#installation
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_show_hidden = 1 
 let g:ctrlp_by_filename = 1
@@ -134,6 +136,15 @@ let g:vdebug_options= {
 \    "break_on_open" : 0,
 \    "watch_window_style" : 'compact',
 \}
+
+" Open ControlP on startup
+function! StartUp()
+	if 0 == argc()
+		CtrlP
+	end
+endfunction
+
+autocmd VimEnter * call StartUp()
 
 " Remap space to change windows
 :map <Space> <C-W>w
@@ -172,15 +183,6 @@ nnoremap <f5> :!ctags -R<CR>
 " Make grep use ack
 set grepprg=ack-grep\ --nogroup\ --column\ $*
 set grepformat=%f:%l:%c:%m
-
-" Open ControlP on startup
-function! StartUp()
-	if 0 == argc()
-		CtrlP
-	end
-endfunction
-
-autocmd VimEnter * call StartUp()
 
 " Console log from insert mode; Puts focus inside parentheses
 imap cll console.log();<Esc>==f(a
