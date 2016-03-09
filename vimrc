@@ -13,22 +13,21 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'godlygeek/tabular'
-"Bundle 'Shougo/neosnippet'
-"Bundle 'honza/snipmate-snippets'
-"Bundle 'brookhong/DBGPavim'
-Bundle 'Lokaltog/vim-powerline'
-"Bundle 'vim-scripts/AutoComplPop'
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'tpope/vim-fugitive'
-Bundle 'joonty/vdebug'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-surround'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'godlygeek/tabular'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-fugitive'
+Plugin 'joonty/vdebug'
+
+call vundle#end()
 
 filetype plugin indent on
 
@@ -117,9 +116,6 @@ vmap <Leader>a= :Tabularize /=<CR>
 let g:syntastic_php_checkers=['php', 'phpcs']
 
 " Ctrl P Options 
-" Install via http://ctrlpvim.github.io/ctrlp.vim/#installation
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_show_hidden = 1 
 let g:ctrlp_by_filename = 1
